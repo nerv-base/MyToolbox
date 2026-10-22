@@ -1,0 +1,16 @@
+{
+  "name": "MyToolbox!!!!!",
+  "identifier": "org.nerv-base.mytoolbox",
+  "version": "0.1.0",
+  "out": "build",
+  "fileAssociations": [
+    { "ext": ["pdf"], "name": "PDF 文档", "mimeType": "application/pdf", "role": "Viewer" }
+  ],
+  "linux": {
+    "webview": false,
+    "command": "mytoolbox",
+    "categories": ["Utility"],
+    "comment": "A fully native local toolbox with PDF compression",
+    "maintainer": "nerv-base"
+  }
+}

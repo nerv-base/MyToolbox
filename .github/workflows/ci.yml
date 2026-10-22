@@ -1,0 +1,31 @@
+name: Verify
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+      - name: Install integration test engine
+        run: sudo apt-get update -qq && sudo apt-get install -y ghostscript
+      - name: Unit, native UI and real PDF integration tests
+        run: go test -race ./...
+      - name: Static checks
+        run: |
+          go vet ./...
+          go tool mygo vet
+      - name: Cross compile native app
+        env:
+          CGO_ENABLED: '0'
+        run: |
+          for target in linux/amd64 linux/arm64 darwin/amd64 darwin/arm64 windows/amd64; do
+            GOOS=${target%/*} GOARCH=${target#*/} go build -tags mygo_noinspector -o "build/check-${target%/*}-${target#*/}" .
+          done

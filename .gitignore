@@ -1,0 +1,13 @@
+/build/
+/.mygo/
+/.cache/
+/resources/ghostscript/
+/resources/darwin-*/
+/resources/linux-*/
+/resources/windows-*/
+*.test
+/MyToolbox
+/MyToolbox.exe
+.DS_Store
+__pycache__/
+*.pyc

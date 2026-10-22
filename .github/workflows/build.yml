@@ -1,0 +1,70 @@
+name: Build desktop apps
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+permissions:
+  contents: read
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            target: linux/amd64
+            resources: linux-amd64
+          - runner: ubuntu-24.04-arm
+            target: linux/arm64
+            resources: linux-arm64
+          - runner: macos-15-intel
+            target: darwin/amd64
+            resources: darwin-amd64
+          - runner: macos-15
+            target: darwin/arm64
+            resources: darwin-arm64
+          - runner: windows-2025
+            target: windows/amd64
+            resources: windows-amd64
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/cache@v4
+        with:
+          path: .cache
+          key: ghostscript-10.08.0-${{ matrix.resources }}-v1
+      - name: Build and bundle the pinned offline compression engine
+        run: python scripts/prepare_engine.py --target ${{ matrix.resources }}
+      - name: Collect dependency licenses
+        run: python scripts/collect_licenses.py
+      - name: Verify using the bundled engine
+        shell: bash
+        run: |
+          if [[ '${{ matrix.resources }}' == windows-* ]]; then
+            export MYTOOLBOX_GS="$PWD/resources/${{ matrix.resources }}/ghostscript/bin/gswin64c.exe"
+          else
+            export MYTOOLBOX_GS="$PWD/resources/${{ matrix.resources }}/ghostscript/bin/gs"
+          fi
+          go test ./...
+      - name: Package the native app
+        env:
+          CGO_ENABLED: '0'
+        run: go tool mygo build -platform ${{ matrix.target }}
+      - name: Include licenses and reproducible source
+        shell: bash
+        run: |
+          cp LICENSE THIRD_PARTY_NOTICES.md build/
+          git archive --format=tar.gz -o build/sources/MyToolbox-source.tar.gz HEAD
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MyToolbox-${{ matrix.resources }}
+          path: build/
+          if-no-files-found: error
+          retention-days: 30
