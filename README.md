@@ -1,4 +1,22 @@
-# MyToolbox!!!!!
+<p align="center">
+  <img src="resources/icon.png" alt="MyToolbox!!!!!" width="88">
+</p>
+
+<h1 align="center">MyToolbox!!!!!</h1>
+
+<p align="center">让日常，轻一点。<br>本地、原生、模块化的桌面工具箱。</p>
+
+<p align="center">
+  <a href="https://github.com/nerv-base/MyToolbox/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/nerv-base/MyToolbox/ci.yml?branch=main&amp;style=flat-square&amp;label=CI&amp;color=286D53"></a>
+  <img alt="Platforms: macOS, Windows, Linux" src="https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-286D53?style=flat-square">
+  <a href="go.mod"><img alt="Go version" src="https://img.shields.io/github/go-mod/go-version/nerv-base/MyToolbox?style=flat-square&amp;color=347F63"></a>
+  <a href="LICENSE"><img alt="License: AGPL-3.0" src="https://img.shields.io/github/license/nerv-base/MyToolbox?style=flat-square&amp;color=657269"></a>
+  <a href="https://github.com/egoist/mygo"><img alt="Built with MyGo" src="https://img.shields.io/badge/built%20with-MyGo-286D53?style=flat-square&amp;labelColor=223029"></a>
+</p>
+
+<p align="center"><b>Built with <a href="https://github.com/egoist/mygo">MyGo Native</a>.</b></p>
+
+<p align="center"><a href="#使用">使用</a> · <a href="#平台与构建状态">平台支持</a> · <a href="#开发">开发与构建</a> · <a href="#扩展工具">扩展工具</a></p>
 
 一个完全使用 **[MyGo Native](https://github.com/egoist/mygo)** 构建的本地桌面工具箱。
 界面、插画、控件和动效都由 Go 的 `ui` 包绘制，工具以独立模块注册。
