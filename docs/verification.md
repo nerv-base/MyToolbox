@@ -27,8 +27,16 @@
 文件名含中文、空格和感叹号。测试重新打开输出并读取文字，验证页数及文字层；
 检查原件字节未变。测试样本不是用户的真实 iPhone 扫描件，不能代替实际文件的画质验收。
 
-## 待平台环境验证
+## 原生 CI 构建
 
-macOS / Windows / Linux ARM64 的原生运行、安装和打包由
-`.github/workflows/build.yml` 的对应 runner 完成，交叉编译不代替运行验证。
+2026-10-23，[Verify](https://github.com/nerv-base/MyToolbox/actions/runs/39884118920)
+与[五平台构建](https://github.com/nerv-base/MyToolbox/actions/runs/39884168600)均通过。
+`darwin/amd64`、`darwin/arm64`、`windows/amd64`、`linux/amd64`、`linux/arm64`
+分别在对应原生 runner 上准备离线引擎、执行真实压缩集成测试及原生视图测试、
+构建应用并上传产物。每份产物包含引擎与工具箱的对应源码。
+
+## 待实机验收
+
+macOS / Windows 的完整桌面交互、安装器体验，以及 Linux ARM64 的桌面交互仍需实机验证；
+CI 中的原生视图与引擎测试不代替这些检查。
 macOS Developer ID、公证与 Windows 代码签名证书尚未配置。

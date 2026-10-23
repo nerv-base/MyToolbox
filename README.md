@@ -58,8 +58,9 @@ Linux 需要 GTK 3 与 OpenGL 运行库；默认构建 runner 为 Ubuntu 24.04�
 Windows 版本使用 x64 引擎；首版没有 Windows ARM64 原生安装包。
 macOS 和 Windows 的公开分发签名需要后续配置证书。
 
-当前已在 Linux 实际运行、打包，并完成三个系统五个架构组合的应用交叉编译；
-macOS / Windows 的原生运行和安装包验证由组织仓库中的构建流程继续执行。
+五个原生 CI 目标均已通过压缩引擎集成测试、原生视图测试和应用打包，
+可在[构建产物](https://github.com/nerv-base/MyToolbox/actions/runs/39884168600)中下载对应平台的离线应用及源码。
+Linux 实际窗口已验证；macOS / Windows 的桌面交互与安装体验仍待实机验收。
 
 ## 开发
 
